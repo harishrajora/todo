@@ -1,3 +1,5 @@
+# Internship Recommendation System 
+
 # STRUCTURE
 
 ## Project Structure
