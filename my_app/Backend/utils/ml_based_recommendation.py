@@ -10,7 +10,8 @@ def ml_based_recommend_mongo(user, internships, top_n=5):
         return []
 
     # Combine text for TF-IDF
-    texts = [f"{row.get("combined_text")}" for row in eligible]
+    texts = [row.get('combined_text', '') for row in eligible]
+
     user_text = " ".join([ele.lower() for index, ele in enumerate(user.get("Skills",""))]) + " " + user.get("Sector", "").lower() + " " + user.get("Location_preference", "").lower()
 
     tfidf = TfidfVectorizer(stop_words="english")
