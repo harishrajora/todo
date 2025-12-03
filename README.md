@@ -10,19 +10,24 @@ To recognize the amazing people who help grow this project, we award badges : [S
 
 Before contributing, please ensure you have:
 
-- Git installed
+- Git 
 
-- Node.js + npm installed (for the frontend)
+- Node.js (version 18+) and npm  
 
-- Python 3.x installed (for the backend)
+- Python 3 (version 3.8+) and pip  
 
-- A GitHub account
+- A MongoDB Atlas account (you'll need a connection string).  
+
+- A Clerk account (you'll need a publishable key for the frontend).  
 
 If you're new to any of these, don’t worry -the steps below walk you through everything.
 
+# Setting up the Project Locally  
+The system has a separate frontend (React/Vite) and backend (Flask). Both require specific environment variables to run.  
+
 ## Fork The Repository 
 
-Click the Fork button at the top of the repository.  
+Click the [Fork](https://github.com/traitor09/todo/fork) button at the top of the repository.  
 This creates your copy that you can safely experiment with.
 
 ## Clone Your Fork
@@ -44,40 +49,27 @@ Use clear branch names:
 `feature/...` for new features  
 `fix/...` for bug fixes  
 `docs/...` for documentation  
-`refactor/...` for improvements
-
-## Setting Up Project Locally 
-### Frontend
-
-Navigate to the frontend folder:
-
-```bash
-cd frontend
-```
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Start the development server:
-
-```bash
-npm run dev
-```
-
-The frontend should now be running locally.
-
-### Backend
+`refactor/...` for improvements  
+### Backend Setup (Flask & MongoDB)
 
 Navigate to the backend folder:
 
 ```bash
 cd backend
 ```
+Create the local configuration file:  
 
-(Optional) Create a virtual environment:
+```bash
+cp .env.example .env
+```
+Open the newly created file and replace the placeholders with your actual credentials:  
+
+`MONGO_CONNECTION_STRING`: Your URI from MongoDB Atlas.  
+`MONGO_DB_NAME`: The name of the database you want to use (e.g., dev_db).  
+
+[Need your credentials? Detailed instructions on where to find your keys [HERE](https://github.com/traitor09/todo/blob/main/docs/ENV_INSTRUCTIONS.md) ]
+
+(Optional) It is highly recommended to use a Virtual Environment (venv) to keep project dependencies separate from your global Python installation:  
 
 - **Linux/macOS**
   ```bash
@@ -103,24 +95,50 @@ cd backend
 pip install -r requirements.txt
 ```
 
-## Setup Environment Variables
-
-```bash
-MONGO_CONNECTION_STRING=<your_mongodb_connection_string>
-MONGO_DB_NAME=<your_database_name>
-```
-#### *Replace <your_mongodb_connection_string> and <your_database_name> with your actual MongoDB URI and database name.
 ## Set up the database:
 
 ```bash
 python setup_database.py
 ```
 
-## Run the backend server:
+## Run the server:
 
 ```bash
 python app.py
 ```
+`Verification`: The terminal should show a message indicating the Flask server is running, usually at http://127.0.0.1:5000.  Keep this terminal running!
+
+
+### Frontend
+
+Navigate to the frontend directory:
+
+```bash
+cd frontend
+```
+
+## Install dependencies:
+
+```bash
+npm install
+```
+## Create the local configuration file:  
+
+```bash
+cp .env.example .env
+```
+Open the file and replace the placeholders:
+
+`VITE_API_URL`: This should point to your running backend: http://127.0.0.1:5000  
+`VITE_CLERK_PUBLISHABLE_KEY`: Your publishable key from the Clerk dashboard.  
+[Need your credentials? Detailed instructions on where to find your keys [HERE](https://github.com/traitor09/todo/blob/main/docs/ENV_INSTRUCTIONS.md) ]
+
+## Run the Frontend:
+
+```bash
+npm run dev
+```
+`Verification`: The terminal will show a local URL, typically http://localhost:5173 (or another port).  Open this URL in your browser to see the application!
 
 ## Ensure
 While contributing, please:
