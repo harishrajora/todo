@@ -6,13 +6,20 @@ from utils.rule_based_recommendation import rule_based_recommend
 from utils.preprocess import process_json_data
 from utils.ml_based_recommendation import ml_based_recommend_mongo
 from pymongo import MongoClient
+from dotenv import load_dotenv
 import os
 
 # ---------------------------
-# MongoDB Direct Connection
+# MongoDB Connection
 # ---------------------------
-MONGO_URI = "mongodb+srv://myUser1:myUser1@cluster0.mrprgj8.mongodb.net/?retryWrites=true&w=majority"
-MONGO_DB_NAME = "internship_recommendation_db"
+
+load_dotenv()
+
+MONGO_URI = os.getenv("MONGO_CONNECTION_STRING") 
+MONGO_DB_NAME = os.getenv("MONGO_DB_NAME") 
+
+if not MONGO_URI:
+    raise ConfigurationError("❌ The environment variable MONGO_CONNECTION_STRING is not set.")
 
 client = None  # global client
 
